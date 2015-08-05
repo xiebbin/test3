@@ -1,7 +1,23 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: deyi20150522
- * Date: 2015/8/5
- * Time: 14:27
- */
+namespace Test\Controller;
+
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+
+class TestController extends AbstractActionController
+{
+        protected $testTable;
+        public function getTestTable(){
+                if(!$this->testTable){
+                        $sm=$this->getServiceLocator();
+                        $this->testTable=$sm->get('Test\Model\TestTable');
+                }
+                return $this->testTable;
+        }
+        public function indexAction()
+        {
+                return new ViewModel(array(
+                        'tests'=>$this->getTestTable()->fetchAll(),
+                ));
+        }
+}
