@@ -1,0 +1,29 @@
+<?php
+
+$adapter=new Zend\Db\Adapter\Adapter(array(
+    'driver'=>'Mysql',
+    'database'=>'test',
+    'username'=>'root',
+    'password'=>''
+));
+$qi=function($name) use($adapter){return $adapter->platform->quoteIdentifier($name);};
+$fp=function($name) use($adapter){return $adapter->driver->formatParameterName($name);};
+$sql = 'UPDATE ' . $qi('artist')
+    . ' SET ' . $qi('name') . ' = ' . $fp('name')
+    . ' WHERE ' . $qi('id') . ' = ' . $fp('id');
+
+$statement=$adapter->query($sql);
+
+$parameters=array(
+    'name'=>'Updated Artist',
+    'id'=>6
+);
+
+$statement->execute($parameters);
+$statement=$adapter->query('SELECT * FROM '
+    . $qi('artist')
+    . ' WHERE id = ' . $fp('id'));
+
+$results=$statement->execute(array('id'=>6));
+$row=$results->current();
+$name=$row['name'];
