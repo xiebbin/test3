@@ -1,0 +1,8 @@
+diff a/module/Test/autoload_classmap.php b/module/Test/autoload_classmap.php	(rejected hunks)
+@@ -1,2 +1,3 @@
+ <?php
+-  return array();
+\ No newline at end of file
++  return array();
++232444
+\ No newline at end of file
