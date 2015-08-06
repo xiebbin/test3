@@ -1,14 +1,14 @@
 <?php
 namespace Test\Model;
-
 use Zend\Db\TableGateway\TableGateway;
 
-class TestTable{
+class TestTable {
     protected $tableGateway;
     public function __construct(TableGateway $tableGateway)
     {
-        $this->tableGateway=$tableGateway;
+        $this->tableGateway= $tableGateway;
     }
+
     public function fetchAll()
     {
         $resultSet=$this->tableGateway->select();
@@ -44,5 +44,19 @@ class TestTable{
     public function deleteTest($id)
     {
         $this->tableGateway->delete($id);
+    }
+    public function innerJoin()
+    {
+        $sql=$this->tableGateway->getSql();
+        $select=$sql->select();
+        $select->columns(array('student','grade'))
+            //->where(array('album.id' => 1))
+            ->join(
+                'album',
+                'album.id=test.id',
+                array('title','artist'),
+                $select::JOIN_INNER
+            );
+        return $this->tableGateway->selectWith($select);
     }
 }
