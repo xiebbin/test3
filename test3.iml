@@ -6,9 +6,13 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="PHARS">
-        <CLASSES />
+        <CLASSES>
+          <root url="phar://$MODULE_DIR$/composer.phar" />
+        </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="phar://$MODULE_DIR$/composer.phar" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>
